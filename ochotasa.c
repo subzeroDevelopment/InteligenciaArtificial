@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-bool search(int [3][3],int);
+bool search(int [3][3],int,float);
+float calculaTasa(int[3][3]);
 void push(int[3][3]);
 void imprimir(int[3][3]);
 void copiar(int[3][3],int[3][3]);
@@ -24,53 +25,24 @@ int stck=30;
 
 /*falta hacer el stack y ingresar matriz final y origen*/
 int main(void){
-	//profundidad=20;
-	//id=0;
-	/*orig[0][0]=1;
-	orig[0][1]=0;
-	orig[0][2]=2;
-	orig[1][0]=3;
-	orig[1][1]=4;
-	orig[1][2]=5;
-	orig[2][0]=6;
-	orig[2][1]=7;
-	orig[2][2]=8;
-	destino[0][0]=1;
-	destino[0][1]=2;
-	destino[0][2]=3;
-	destino[1][0]=0;
-	destino[1][1]=4;
-	destino[1][2]=5;
-	destino[2][0]=6;
-	destino[2][1]=7;
-	destino[2][2]=8;*/
-	/*int ve[2];
-	imprimir(orig);
-	buscarCero(orig,ve);
-	abajo(ve[0],ve[1],orig);
-	printf("\n");
-	imprimir(orig);
-	printf("\n");
-	buscarCero(orig,ve);
-	abajo(ve[0],ve[1],orig);
-	printf("\n");
-	imprimir(orig);
-	printf("\n");
-	buscarCero(orig,ve);
-	der(ve[0],ve[1],orig);
-	printf("\n");
-	imprimir(orig);
-	printf("\n");
-	buscarCero(orig,ve);
-	izq(ve[0],ve[1],orig);
-	printf("\n");
-	imprimir(orig);
-	printf("\n");
-	buscarCero(orig,ve);
-	arriba(ve[0],ve[1],orig);
-	printf("\n");
-	imprimir(orig);*/
-
+	orig[0][0]=1;
+	orig[0][1]=2;
+	orig[0][2]=3;
+	orig[1][0]=4;
+	orig[1][1]=5;
+	orig[1][2]=6;
+	orig[2][0]=7;
+	orig[2][1]=8;
+	orig[2][2]=0;
+	destino[0][0]=0;
+	destino[0][1]=8;
+	destino[0][2]=7;
+	destino[1][0]=6;
+	destino[1][1]=5;
+	destino[1][2]=4;
+	destino[2][0]=3;
+	destino[2][1]=2;
+	destino[2][2]=1;
 
 	for (int z = 0; z < stck; ++z){
 		for (int x = 0; x < 3 ; ++x){
@@ -80,6 +52,7 @@ int main(void){
 			}
 		}	
 	}
+	/*
 	printf("ingrese estado inicial\n");
 	for (int x = 0; x < 3 ; ++x){
 			for (int i = 0; i < 3; ++i){
@@ -101,9 +74,10 @@ int main(void){
 				destino[x][i]=b;
 			}
 			printf("\n");
-		}
-	
-	var=search(orig,0);
+		}*/
+	float t=calculaTasa(orig);
+
+	var=search(orig,0,0.0);
 	if(var==true){
 		printf("%s\n","encontro" );
 	int o;
@@ -128,17 +102,27 @@ int main(void){
 	
 	return 0;
 	}
-bool search(int matriz[3][3],int profundidad){
+bool search(int matriz[3][3],int profundidad,float tasa){
 	int vec[2];
+	float tasap;
 	int aux[3][3];
 	//printf("%s%d\n","contador:",cont );
 	imprimir(matriz);
 	buscarCero(matriz,vec);
+	
 	push(matriz);
 	profundidad++;
 	if(sonIguales(matriz,destino)==9){
 		return true;
 	}
+	tasap=calculaTasa(matriz);
+	printf("tasa padre%f\n",tasa);
+	printf("tasa actual:%f\n",tasap);
+	if(tasap<tasa){
+		pop();
+		return false;
+	}
+
 	//copiar(matriz,aux);
 	//imprimir(aux);
 	if(profundidad<stck){
@@ -151,10 +135,12 @@ bool search(int matriz[3][3],int profundidad){
 			//imprimir(aux);
 			//printf("%d %d\n",vec[0],vec[1]);
 			izq(vec[0],vec[1],aux);
+			
 			//printf("%s\n","auxi izq");
 			//imprimir(aux);
 			//printf("****\n");
-			if(search(aux,profundidad)==true)return true;
+			
+			if(search(aux,profundidad,tasap)==true)return true;
 			else imprimir(matriz);
 		}
 		if(vec[1]<2){
@@ -165,10 +151,12 @@ bool search(int matriz[3][3],int profundidad){
 			//imprimir(aux);
 			//printf("%d %d\n",vec[0],vec[1]);
 			der(vec[0],vec[1],aux);
+			
 			//printf("%s\n","auxi der");
 			//imprim//ir(aux);
 			//printf("****\n");
-			if(search(aux,profundidad)==true)return true;
+			
+			if(search(aux,profundidad,tasap)==true)return true;
 			else imprimir(matriz);
 		}
 		if(vec[0]>0){
@@ -179,10 +167,12 @@ bool search(int matriz[3][3],int profundidad){
 			//imprimir(aux);
 			//printf("%d %d\n",vec[0],vec[1]);
 			arriba(vec[0],vec[1],aux);
+			
 			//printf("%s\n","auxi arriba");
 			//imprimir(aux);
 			//printf("****\n");
-			if(search(aux,profundidad)==true)return true;
+			
+			if(search(aux,profundidad,tasap)==true)return true;
 			else imprimir(matriz);
 		}
 		
@@ -194,10 +184,12 @@ bool search(int matriz[3][3],int profundidad){
 			//imprimir(aux);
 			//printf("%d %d\n",vec[0],vec[1]);
 			abajo(vec[0],vec[1],aux);
+			
 			//printf("%s\n","auxi abajo");
 			//imprimir(aux);
 			//printf("****\n");
-			if(search(aux,profundidad)==true)return true;
+
+			if(search(aux,profundidad,tasap)==true)return true;
 			else imprimir(matriz);
 		}
 	}	
@@ -208,9 +200,22 @@ bool search(int matriz[3][3],int profundidad){
 		return false;
 	
 }
+
+float calculaTasa(int ma[3][3]){
+	float tasa;
+	float co=0.0;
+	for (int i = 0; i < 3; ++i){
+		for (int j = 0; j< 3; ++j){
+			if (ma[i][j]==destino[i][j])
+				co++;	
+		}
+	}
+	tasa=co/9.0;
+	return tasa;
+}
 void imprimir(int ma[3][3]){
 	sleep(0.8);
-	system("clear");
+	//system("clear");
 	for (int i = 0; i < 3; ++i){
 		for (int j = 0; j < 3; ++j){
 			printf("%d",ma[i][j]);	

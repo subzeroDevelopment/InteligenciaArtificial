@@ -132,7 +132,7 @@ bool search(int matriz[3][3],int profundidad){
 	int vec[2];
 	int aux[3][3];
 	//printf("%s%d\n","contador:",cont );
-	imprimir(matriz);
+	//imprimir(matriz);
 	buscarCero(matriz,vec);
 	push(matriz);
 	profundidad++;
@@ -155,7 +155,7 @@ bool search(int matriz[3][3],int profundidad){
 			//imprimir(aux);
 			//printf("****\n");
 			if(search(aux,profundidad)==true)return true;
-			else imprimir(matriz);
+			//else imprimir(matriz);
 		}
 		if(vec[1]<2){
 			//imprimir(matriz);
@@ -169,7 +169,7 @@ bool search(int matriz[3][3],int profundidad){
 			//imprim//ir(aux);
 			//printf("****\n");
 			if(search(aux,profundidad)==true)return true;
-			else imprimir(matriz);
+			//else imprimir(matriz);
 		}
 		if(vec[0]>0){
 			//imprimir(matriz);
@@ -183,7 +183,7 @@ bool search(int matriz[3][3],int profundidad){
 			//imprimir(aux);
 			//printf("****\n");
 			if(search(aux,profundidad)==true)return true;
-			else imprimir(matriz);
+			//else imprimir(matriz);
 		}
 		
 		if(vec[0]<2){
@@ -198,7 +198,7 @@ bool search(int matriz[3][3],int profundidad){
 			//imprimir(aux);
 			//printf("****\n");
 			if(search(aux,profundidad)==true)return true;
-			else imprimir(matriz);
+			//else imprimir(matriz);
 		}
 	}	
 		//printf("false:\n");
@@ -209,8 +209,8 @@ bool search(int matriz[3][3],int profundidad){
 	
 }
 void imprimir(int ma[3][3]){
-	sleep(0.8);
-	system("clear");
+	//sleep(0.8);
+	//system("clear");
 	for (int i = 0; i < 3; ++i){
 		for (int j = 0; j < 3; ++j){
 			printf("%d",ma[i][j]);	
