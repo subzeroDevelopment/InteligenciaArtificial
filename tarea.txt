@@ -1,0 +1,2 @@
+generar el mismo algoritmo con una tasa de eficacion =elementos correctos/total elementos
+if despues de generar un hijo la tasa es menor al padre regresara falso automaticamente.
