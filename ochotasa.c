@@ -75,7 +75,7 @@ int main(void){
 			}
 			printf("\n");
 		}*/
-	float t=calculaTasa(orig);
+	
 
 	var=search(orig,0,0.0);
 	if(var==true){
